@@ -5,13 +5,9 @@ using namespace std;
 
 int main()
 {
-	string a;
+	string a, b;
 	cin >> a;
-
-	string originA = a;
-	reverse(a.begin(), a.end());
-
-	bool result = (originA == a) ? 1 : 0;
-
-	cout << result << endl;
+	b = a;
+	reverse(b.begin(), b.end());
+	cout << (a == b);
 }
