@@ -6,43 +6,32 @@ using namespace std;
 
 int main()
 {
-	string subjectName, grade; // 과목명, 학점용 등급
-	double subjectTime = 0.0, totalSubTime = 0.0, gradeForFloat = 0.0, averageGrade = 0.0; // 이수학점, 총 이수학점, 등급변환용 학점, 평점
+    string name, grade;
+    float credit, creditSum = 0.0f, sum = 0.0f;
+    float gradeNum;
 
-	vector <pair<double, string>> scoreVector;
-	vector <pair<string, double>> gradeVector =
-	{
-		{"A+", 4.5}, {"A0", 4.0}, {"B+", 3.5}, {"B0", 3.0}, {"C+", 2.5}, {"C0", 2.0}, {"D+", 1.5}, {"D0", 1.0}, {"F", 0.0}
-	};
+    for (int i = 0; i < 20; ++i)
+    {
+        cin >> name >> credit >> grade;
 
-	for (int i = 0; i < 20; i++)
-	{
-		cin >> subjectName >> subjectTime >> grade;
+        if (grade[0] < 'A' || grade[0] > 'D') // A와 D가 아닌 경우
+        {
+            if (grade[0] == 'F') // F인 경우
+            {
+                creditSum += credit;
+            }
+            continue;
+        }
 
-		scoreVector.push_back({ subjectTime, grade });
-	}
+        gradeNum = (float)4 - (grade[0] - 'A');
+        if (grade[1] == '+') //+인 경우
+        {
+            gradeNum += 0.5f;
+        }
 
-	for (auto eachScore : scoreVector)
-	{
-		double eachSubTime = eachScore.first;	// 과목별 이수학점
-		string eachSubGrade = eachScore.second; // 과목별 등급
-
-		for (auto eachGrade : gradeVector)
-		{
-			string subjectGradeName = eachGrade.first; // 학점별 등급명
-			double subjectGrade = eachGrade.second; // 학점별 등급점수
-
-			if (eachSubGrade == subjectGradeName)
-			{
-				gradeForFloat += eachSubTime * subjectGrade; // 등급 = 이수학점 * 학점별 등급점수
-				totalSubTime += eachSubTime;	// 총 이수학점 = 이수학점 누적
-			}
-		}
-	}
-
-	averageGrade = gradeForFloat / totalSubTime;
-	cout.precision(7);
-	cout << averageGrade << endl;
-    
-    return 0;
+        creditSum += credit;
+        sum += credit * gradeNum;
+    }
+    cout.precision(7);
+    cout << (sum / creditSum);
 }
